@@ -1,4 +1,4 @@
-import { Component, Element, Prop } from '@stencil/core';
+import { Component, Element, Listen, Prop } from '@stencil/core';
 import { default as ChartJS } from 'chart.js';
 import { ChartOptions, ChartType, InteractionMode, PositionType, ScaleType }
   from 'chart.js';
@@ -73,6 +73,18 @@ export class Chart {
 
   componentDidUpdate() {
     this.updateChart();
+  }
+
+  @Listen('keydown')
+  handleKeyDown(e: KeyboardEvent){
+    if (!this.chart || !(this.legend || this.tooltip)) return;
+    let keyNum = parseInt(e.key);
+    if (this.legend && !isNaN(keyNum) && keyNum > 0 &&
+        keyNum <= this.chart.data.datasets.length) {
+      let meta = this.chart.getDatasetMeta(keyNum - 1);
+      meta.hidden = !meta.hidden;
+      this.chart.update();
+    }
   }
 
   updateChart() {
@@ -250,6 +262,12 @@ export class Chart {
       this.xType || 'category' : this.yType || 'linear';
 
     this.canvas.appendChild(scale);
+  }
+
+  hostData() {
+    let attrs = {};
+    if (this.legend || this.tooltip) attrs['tabindex'] = 0;
+    return attrs;
   }
 
   render() {
