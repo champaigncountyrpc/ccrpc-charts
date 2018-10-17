@@ -58,11 +58,12 @@ export class Chart {
   @Prop() yType: ScaleType;
   @Prop() yLabel: string;
 
+  @Prop() lineWidth: number = 2;
   @Prop() fill: boolean | number | string = false;
   @Prop() stacked: boolean;
   @Prop() tooltip: boolean = true;
   @Prop() tooltipIntersect: boolean = false;
-  @Prop() tooltipMode: InteractionMode = 'index';
+  @Prop() tooltipMode: InteractionMode;
 
   async componentDidLoad() {
     let datasetsCreated = await this.createDatasets();
@@ -107,7 +108,9 @@ export class Chart {
       },
       tooltips: {
         enabled: this.tooltip,
-        mode: this.tooltipMode,
+        mode: this.tooltipMode ||
+          (this.type === 'pie' || this.type === 'doughnut') ?
+            'nearest' : 'index',
         intersect: this.tooltipIntersect
       }
     };
@@ -172,7 +175,7 @@ export class Chart {
 
     let labels = [];
     let datasets;
-    let colors = toArray(this.colors);
+    let colors = toArray(this.colors).map((color) => COLORS[color] || color);
 
     for (let i = 0; i < data.length; i++) {
       let row = data[i];
@@ -195,12 +198,20 @@ export class Chart {
 
   createDataset(index: number, label: string, colors: string[]) {
     let dataset = document.createElement('rpc-dataset');
-    let colorName = colors[index % colors.length];
-    let color = COLORS[colorName] || colorName
+    let color = colors[index % colors.length];
 
-    dataset.backgroundColor = (this.type === 'line' && this.fill != false) ?
-      setOpacity(color, 0.5) : color;
+    let backgroundColor;
+    if (this.type === 'line' && this.fill != false) {
+      backgroundColor = setOpacity(color);
+    } else if (this.type === 'pie' || this.type === 'doughnut') {
+      backgroundColor = colors;
+    } else {
+      backgroundColor = color;
+    }
+
+    dataset.backgroundColor = backgroundColor;
     dataset.borderColor = color;
+    dataset.borderWidth = (this.type === 'line') ? this.lineWidth : 0;
     dataset.data = [];
     dataset.fill = this.fill;
     dataset.label = label;

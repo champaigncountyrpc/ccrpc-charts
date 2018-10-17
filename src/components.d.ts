@@ -30,6 +30,7 @@ export namespace Components {
     'labels': string[];
     'legend': boolean;
     'legendPosition': PositionType;
+    'lineWidth': number;
     'responsive': boolean;
     'rows': string;
     'stacked': boolean;
@@ -57,6 +58,7 @@ export namespace Components {
     'labels'?: string[];
     'legend'?: boolean;
     'legendPosition'?: PositionType;
+    'lineWidth'?: number;
     'responsive'?: boolean;
     'rows'?: string;
     'stacked'?: boolean;
@@ -76,7 +78,7 @@ export namespace Components {
   interface RpcDataset {
     'backgroundColor': string;
     'borderColor': string;
-    'borderWidth': string;
+    'borderWidth': number;
     'data': number[] | string;
     'fill': boolean | number | string;
     'label': string;
@@ -85,7 +87,7 @@ export namespace Components {
   interface RpcDatasetAttributes extends StencilHTMLAttributes {
     'backgroundColor'?: string;
     'borderColor'?: string;
-    'borderWidth'?: string;
+    'borderWidth'?: number;
     'data'?: number[] | string;
     'fill'?: boolean | number | string;
     'label'?: string;

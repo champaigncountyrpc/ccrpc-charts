@@ -11,12 +11,12 @@ export interface DataOptions {
 function _filter(i: number, values: number[]) {
   let pos = (values[0] > 0);
   let sign = (pos) ? 1 : -1;
-  let match = (values.indexOf((i+1)*sign) === -1);
+  let match = (values.indexOf((i+1)*sign) !== -1);
   return (pos) ? match : !match;
 };
 
 function _toIntArray(values: string) {
-  return (values) ? values.split(',').map(parseInt) : [];
+  return (values) ? values.split(',').map((v) => parseInt(v)) : [];
 }
 
 export async function getData(source: string | HTMLElement,
@@ -54,7 +54,7 @@ export function toArray(values: string | any[]) {
 }
 
 export function toNumericArray(values: string | number[]) {
-  return toArray(values).map(parseFloat);
+  return toArray(values).map((v) => parseFloat(v));
 }
 
 export function removeUndefined(obj: any) {

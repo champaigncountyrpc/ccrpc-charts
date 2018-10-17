@@ -8,7 +8,7 @@ import { ChartType } from 'chart.js';
 export class Dataset {
   @Prop() backgroundColor: string;
   @Prop() borderColor: string;
-  @Prop() borderWidth: string;
+  @Prop() borderWidth: number;
   @Prop() data: number[] | string;
   @Prop() fill: boolean | number | string;
   @Prop() label: string;
