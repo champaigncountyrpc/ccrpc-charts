@@ -20,12 +20,13 @@ export namespace Components {
 
   interface RpcChart {
     'animationDuration': number;
+    'aspectRatio': number;
     'chartTitle': string;
     'colors': string | string[];
     'columns': string;
     'fill': boolean | number | string;
     'gridLines': boolean;
-    'height': string;
+    'height': number;
     'labels': string[];
     'legend': boolean;
     'legendPosition': PositionType;
@@ -38,7 +39,7 @@ export namespace Components {
     'tooltipMode': InteractionMode;
     'type': ChartType;
     'url': string;
-    'width': string;
+    'width': number;
     'xLabel': string;
     'xType': ScaleType;
     'yLabel': string;
@@ -46,12 +47,13 @@ export namespace Components {
   }
   interface RpcChartAttributes extends StencilHTMLAttributes {
     'animationDuration'?: number;
+    'aspectRatio'?: number;
     'chartTitle'?: string;
     'colors'?: string | string[];
     'columns'?: string;
     'fill'?: boolean | number | string;
     'gridLines'?: boolean;
-    'height'?: string;
+    'height'?: number;
     'labels'?: string[];
     'legend'?: boolean;
     'legendPosition'?: PositionType;
@@ -64,7 +66,7 @@ export namespace Components {
     'tooltipMode'?: InteractionMode;
     'type'?: ChartType;
     'url'?: string;
-    'width'?: string;
+    'width'?: number;
     'xLabel'?: string;
     'xType'?: ScaleType;
     'yLabel'?: string;

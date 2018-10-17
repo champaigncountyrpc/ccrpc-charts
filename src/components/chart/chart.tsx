@@ -32,8 +32,9 @@ export class Chart {
   @Element() el: HTMLElement;
 
   @Prop() animationDuration: number = 0;
-  @Prop() height: string = '400px';
-  @Prop() width: string = '800px';
+  @Prop() aspectRatio: number = 2;
+  @Prop() height: number;
+  @Prop() width: number;
   @Prop() responsive: boolean = true;
 
   @Prop({mutable: true}) labels: string[];
@@ -90,6 +91,7 @@ export class Chart {
       animation: {
         duration: this.animationDuration
       },
+      aspectRatio: this.aspectRatio,
       legend: {
         display: this.legend,
         position: this.legendPosition
@@ -240,8 +242,12 @@ export class Chart {
   }
 
   render() {
+    let canvasAttrs = {};
+    if (this.height) canvasAttrs['height'] = this.height;
+    if (this.width) canvasAttrs['width'] = this.width;
+
     return (
-      <canvas ref={(r) => this.canvas = r}>
+      <canvas ref={(r) => this.canvas = r} {...canvasAttrs}>
         <slot />
       </canvas>
     );

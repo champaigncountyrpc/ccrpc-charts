@@ -13,7 +13,9 @@
     chart-title="Bar Chart"
     x-label="Year"
     y-label="Score"
-    type="bar"></rpc-chart>
+    type="bar"
+    width="300"
+    height="100"></rpc-chart>
 
   <rpc-chart url="/data/results.csv"
     chart-title="Stacked Bar Chart"
@@ -21,7 +23,8 @@
     y-label="Score"
     type="bar"
     stacked="true"
-    legend-position="right"></rpc-chart>
+    legend-position="right"
+    aspect-ratio="3"></rpc-chart>
 
   <rpc-chart url="/data/results.csv"
     chart-title="Line Chart"
