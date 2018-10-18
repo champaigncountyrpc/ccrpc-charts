@@ -79,11 +79,11 @@ export class Chart {
   handleKeyDown(e: KeyboardEvent){
     if (!this.chart || !(this.legend || this.tooltip)) return;
     let keyNum = parseInt(e.key);
+    let chart = this.chart as any;
+    let legendItems = chart.legend.legendItems;
     if (this.legend && !isNaN(keyNum) && keyNum > 0 &&
-        keyNum <= this.chart.data.datasets.length) {
-      let meta = this.chart.getDatasetMeta(keyNum - 1);
-      meta.hidden = !meta.hidden;
-      this.chart.update();
+        keyNum <= legendItems.length) {
+      chart.options.legend.onClick.bind(chart)({}, legendItems[keyNum - 1]);
     }
   }
 
