@@ -76,6 +76,11 @@ export class Chart {
     this.updateChart();
   }
 
+  @Listen('window:resize')
+  handleResize() {
+    if (this.responsive) this.chart.resize();
+  }
+
   @Listen('keydown')
   handleKeyDown(e: KeyboardEvent){
     if (this.tooltip && e.key === 't') {
