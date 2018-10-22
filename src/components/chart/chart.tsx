@@ -77,14 +77,64 @@ export class Chart {
 
   @Listen('keydown')
   handleKeyDown(e: KeyboardEvent){
-    if (!this.chart || !(this.legend || this.tooltip)) return;
-    let keyNum = parseInt(e.key);
+    if (this.tooltip && e.key === 't') {
+      this.handleTooltipKey();
+    } else if (this.legend && !isNaN(+e.key)) {
+      this.handleLegendKey(+e.key);
+    }
+  }
+
+  handleLegendKey(keyNum: number) {
     let chart = this.chart as any;
     let legendItems = chart.legend.legendItems;
-    if (this.legend && !isNaN(keyNum) && keyNum > 0 &&
-        keyNum <= legendItems.length) {
+    if (keyNum > 0 && keyNum <= legendItems.length)
       chart.options.legend.onClick.bind(chart)({}, legendItems[keyNum - 1]);
+  }
+
+  handleTooltipKey() {
+    let chart = this.chart as any;
+    let datasetIndex = 0;
+    let index = -1;
+    if (chart.active && chart.active.length > 0) {
+      datasetIndex = chart.active[0]._datasetIndex;
+      index = chart.active[0]._index;
     }
+    index++;
+
+    let target = this.getTooltipTarget(datasetIndex, index);
+    if (!target) {
+      chart.eventHandler({
+        target: this.canvas,
+        type: 'mouseout',
+        native: true
+      });
+      return;
+    }
+
+    let center = target.getCenterPoint();
+    chart.eventHandler({
+      target: this.canvas,
+      type: 'mousemove',
+      x: center.x,
+      y: center.y,
+      native: true
+    });
+  }
+
+  getTooltipTarget(d: number, i: number) {
+    let chart = this.chart as any;
+
+    let dataset = chart.data.datasets[d];
+    if (!dataset) return;
+    if (!chart.isDatasetVisible(d)) return this.getTooltipTarget(d + 1, 0);
+
+    let meta = chart.getDatasetMeta(d);
+    let element = meta.data[i];
+    if (!element && ['point', 'nearest'].indexOf(this.tooltipMode) !== -1)
+      return this.getTooltipTarget(d + 1, 0);
+    if (element && element.hidden) return this.getTooltipTarget(d, i + 1);
+
+    return element;
   }
 
   updateChart() {
