@@ -6,6 +6,8 @@ import { getData, removeUndefined, setOpacity, toArray, toNumericArray }
   from '../../utils';
 
 
+ChartJS.defaults.global.defaultFontFamily =
+  "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
 const COLORS = {
   red: '#be1e2d',
   blue: '#24abe2',
@@ -172,7 +174,10 @@ export class Chart {
       },
       title: {
         display: this.chartTitle != null,
-        text: this.chartTitle
+        text: this.chartTitle,
+        fontFamily:
+          "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+        fontSize: 18
       },
       tooltips: {
         enabled: this.tooltip,
@@ -204,7 +209,8 @@ export class Chart {
           position: scale.position,
           scaleLabel: {
             display: scale.scaleLabel != null,
-            labelString: scale.scaleLabel
+            labelString: scale.scaleLabel,
+            fontStyle: 'bold'
           },
           stacked: scale.stacked,
           type: scale.type,
