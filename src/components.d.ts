@@ -82,6 +82,8 @@ export namespace Components {
     'data': number[] | string;
     'fill': boolean | number | string;
     'label': string;
+    'order': number;
+    'pointRadius': number;
     'type': ChartType;
   }
   interface RpcDatasetAttributes extends StencilHTMLAttributes {
@@ -91,6 +93,8 @@ export namespace Components {
     'data'?: number[] | string;
     'fill'?: boolean | number | string;
     'label'?: string;
+    'order'?: number;
+    'pointRadius'?: number;
     'type'?: ChartType;
   }
 

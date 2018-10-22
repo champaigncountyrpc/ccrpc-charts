@@ -68,3 +68,21 @@ export function removeUndefined(obj: any) {
 export function setOpacity(color : string, opacity : number = 0.5) {
   return Color(color).alpha(1 - opacity).rgbString();
 }
+
+export function rpcColor(color: string | string[]) {
+  let colors = {
+    red: '#be1e2d',
+    blue: '#24abe2',
+    lime: '#8dc53f',
+    orange: '#f6921e',
+    indigo: '#2e3191',
+    green: '#009345',
+    violet: '#9122bf',
+    yellow: '#edd95f',
+    gray: '#848484',
+    brown: '#754d3f'
+  };
+  if (color === undefined) return color;
+  return (typeof color === 'string') ?
+    colors[color] || color : color.map((c) => colors[c] || c);
+}

@@ -44,5 +44,20 @@
     chart-title="Pie Chart"
     type="pie"></rpc-chart>
 
+  <rpc-chart url="/data/results.csv"
+    chart-title="Multiple Types Chart"
+    x-label="Year"
+    y-label="Score"
+    type="bar"
+    width="300"
+    height="100">
+    <rpc-dataset label="Baseline"
+      type="line"
+      data="4,4,4,4,4"
+      fill="false"
+      border-color="lime"
+      point-radius="0"></rpc-dataset>
+  </rpc-chart>
+
 </body>
 </html>

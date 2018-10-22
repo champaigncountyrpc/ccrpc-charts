@@ -2,25 +2,12 @@ import { Component, Element, Listen, Prop } from '@stencil/core';
 import { default as ChartJS } from 'chart.js';
 import { ChartOptions, ChartType, InteractionMode, PositionType, ScaleType }
   from 'chart.js';
-import { getData, removeUndefined, setOpacity, toArray, toNumericArray }
-  from '../../utils';
+import { getData, removeUndefined, rpcColor, setOpacity, toArray,
+  toNumericArray } from '../../utils';
 
 
 ChartJS.defaults.global.defaultFontFamily =
   "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
-const COLORS = {
-  red: '#be1e2d',
-  blue: '#24abe2',
-  lime: '#8dc53f',
-  orange: '#f6921e',
-  indigo: '#2e3191',
-  green: '#009345',
-  violet: '#9122bf',
-  yellow: '#edd95f',
-  gray: '#848484',
-  brown: '#754d3f'
-};
-
 
 @Component({
   tag: 'rpc-chart',
@@ -146,15 +133,14 @@ export class Chart {
   }
 
   updateChart() {
-    if (this.chart) {
+    let config = {
+      type: this.type,
+      data: this.getData(),
+      options: this.getOptions()
+    };
 
-    } else {
-      this.chart = new ChartJS(this.canvas.getContext('2d'), {
-        type: this.type,
-        data: this.getData(),
-        options: this.getOptions()
-      });
-    }
+    if (this.chart) this.chart.destroy();
+    this.chart = new ChartJS(this.canvas.getContext('2d'), config);
   }
 
   getOptions() {
@@ -220,7 +206,8 @@ export class Chart {
   }
 
   getData() {
-    let datasets = Array.from(this.canvas.querySelectorAll('rpc-dataset'));
+    let datasets = this.queryDatasets();
+
     return {
       labels: toArray(this.labels),
       datasets: datasets.map((dataset) => this.getDataset(dataset))
@@ -229,13 +216,25 @@ export class Chart {
 
   getDataset(dataset: HTMLRpcDatasetElement) {
     return removeUndefined({
-      backgroundColor: dataset.backgroundColor,
-      borderColor: dataset.borderColor,
+      backgroundColor: rpcColor(dataset.backgroundColor),
+      borderColor: rpcColor(dataset.borderColor),
       borderWidth: dataset.borderWidth,
       data: toNumericArray(dataset.data),
       fill: dataset.fill,
-      label: dataset.label
+      label: dataset.label,
+      pointRadius: dataset.pointRadius,
+      type: dataset.type
     });
+  }
+
+  queryDatasets() {
+    let datasets = [
+      ...Array.from(this.canvas.querySelectorAll('rpc-dataset')),
+      ...Array.from(this.el.querySelectorAll('rpc-dataset'))
+    ];
+
+    datasets.sort((a, b) => a.order - b.order);
+    return datasets;
   }
 
   async createDatasets() {
@@ -249,7 +248,7 @@ export class Chart {
 
     let labels = [];
     let datasets;
-    let colors = toArray(this.colors).map((color) => COLORS[color] || color);
+    let colors = toArray(this.colors);
 
     for (let i = 0; i < data.length; i++) {
       let row = data[i];
@@ -276,7 +275,7 @@ export class Chart {
 
     let backgroundColor;
     if (this.type === 'line' && this.fill != false) {
-      backgroundColor = setOpacity(color);
+      backgroundColor = setOpacity(rpcColor(color));
     } else if (this.type === 'pie' || this.type === 'doughnut') {
       backgroundColor = colors;
     } else {
@@ -289,6 +288,7 @@ export class Chart {
     dataset.data = [];
     dataset.fill = this.fill;
     dataset.label = label;
+    dataset.order = index + 1;
     this.canvas.appendChild(dataset);
     return dataset;
   }
@@ -329,7 +329,7 @@ export class Chart {
   createTable() {
     let rows = toArray(this.labels).map((label) => [label]);
     let header = [this.xLabel || ''];
-    let datasets = Array.from(this.canvas.querySelectorAll('rpc-dataset'));
+    let datasets = this.queryDatasets();
     for (let dataset of datasets) {
       let values = toArray(dataset.data);
       for (let r in rows) rows[r].push((values[r] || '').toString());

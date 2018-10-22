@@ -12,5 +12,7 @@ export class Dataset {
   @Prop() data: number[] | string;
   @Prop() fill: boolean | number | string;
   @Prop() label: string;
+  @Prop() order: number = 0;
+  @Prop() pointRadius: number;
   @Prop() type: ChartType;
 }
