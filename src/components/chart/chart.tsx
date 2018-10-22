@@ -68,6 +68,7 @@ export class Chart {
   async componentDidLoad() {
     let datasetsCreated = await this.createDatasets();
     let scalesCreated = this.createXYScales();
+    this.createTable();
     if (!(datasetsCreated || scalesCreated)) this.updateChart();
   }
 
@@ -312,6 +313,44 @@ export class Chart {
       this.xType || 'category' : this.yType || 'linear';
 
     this.canvas.appendChild(scale);
+  }
+
+  createTable() {
+    let rows = toArray(this.labels).map((label) => [label]);
+    let header = [this.xLabel || ''];
+    let datasets = Array.from(this.canvas.querySelectorAll('rpc-dataset'));
+    for (let dataset of datasets) {
+      let values = toArray(dataset.data);
+      for (let r in rows) rows[r].push((values[r] || '').toString());
+      header.push(dataset.label);
+    }
+
+    let table = document.createElement('table');
+    if (this.chartTitle) {
+      let caption = document.createElement('caption');
+      caption.textContent = this.chartTitle;
+      table.appendChild(caption);
+    }
+
+    let thead = document.createElement('thead');
+    thead.appendChild(this.createRow(header, 'th'));
+    table.appendChild(thead);
+
+    let tbody = document.createElement('tbody');
+    for (let row of rows) tbody.appendChild(this.createRow(row, 'td'));
+    table.appendChild(tbody);
+
+    this.canvas.appendChild(table);
+  }
+
+  createRow(values: string[], tag: 'td' | 'th') {
+    let tr = document.createElement('tr');
+    for (let value of values) {
+      let td = document.createElement(tag);
+      td.textContent = value;
+      tr.appendChild(td);
+    }
+    return tr;
   }
 
   hostData() {
