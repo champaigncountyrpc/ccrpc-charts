@@ -15,10 +15,9 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@stencil/core": "0.14.0",
+    "@stencil/core": "0.14.1",
     "@types/chart.js": "^2.7.38",
     "@types/d3-fetch": "^1.1.2",
     "chart.js": "^2.7.3",
