@@ -35,6 +35,10 @@ export class Chart {
 
   @Prop() type: ChartType = 'bar';
   @Prop() chartTitle: string;
+  @Prop() description: string;
+  @Prop() source: string;
+  @Prop() sourceUrl: string;
+
   @Prop() legend: boolean = true;
   @Prop() legendPosition: PositionType = 'top';
 
@@ -364,6 +368,18 @@ export class Chart {
     return tr;
   }
 
+  getMeta() {
+    let items = [];
+    if (this.source) {
+      let source = (this.sourceUrl) ?
+        <a href={this.sourceUrl}>{this.source}</a> : this.source;
+      items.push(<p class="source"><strong>Source:</strong> {source}</p>);
+    }
+    if (this.description)
+      items.push(<p class="description">{this.description}</p>);
+    if (items.length) return (<div class="meta">{items}</div>);
+  }
+
   hostData() {
     let attrs = {};
     if (this.legend || this.tooltip) attrs['tabindex'] = 0;
@@ -375,10 +391,11 @@ export class Chart {
     if (this.height) canvasAttrs['height'] = this.height;
     if (this.width) canvasAttrs['width'] = this.width;
 
-    return (
+    return ([
       <canvas ref={(r) => this.canvas = r} {...canvasAttrs}>
         <slot />
-      </canvas>
-    );
+      </canvas>,
+      this.getMeta()
+    ]);
   }
 }

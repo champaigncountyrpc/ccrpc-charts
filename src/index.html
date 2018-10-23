@@ -15,7 +15,9 @@
     y-label="Score"
     type="bar"
     width="300"
-    height="100"></rpc-chart>
+    height="100"
+    source="CCRPC"
+    source-url="https://ccrpc.org/"></rpc-chart>
 
   <rpc-chart url="/data/results.csv"
     chart-title="Stacked Bar Chart"
@@ -24,7 +26,8 @@
     type="bar"
     stacked="true"
     legend-position="right"
-    aspect-ratio="3"></rpc-chart>
+    aspect-ratio="3"
+    description="These are the results of the team competition for the years 2001 to 2005."></rpc-chart>
 
   <rpc-chart url="/data/results.csv"
     chart-title="Line Chart"

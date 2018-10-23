@@ -24,6 +24,7 @@ export namespace Components {
     'chartTitle': string;
     'colors': string | string[];
     'columns': string;
+    'description': string;
     'fill': boolean | number | string;
     'gridLines': boolean;
     'height': number;
@@ -33,6 +34,8 @@ export namespace Components {
     'lineWidth': number;
     'responsive': boolean;
     'rows': string;
+    'source': string;
+    'sourceUrl': string;
     'stacked': boolean;
     'switch': boolean;
     'tooltip': boolean;
@@ -52,6 +55,7 @@ export namespace Components {
     'chartTitle'?: string;
     'colors'?: string | string[];
     'columns'?: string;
+    'description'?: string;
     'fill'?: boolean | number | string;
     'gridLines'?: boolean;
     'height'?: number;
@@ -61,6 +65,8 @@ export namespace Components {
     'lineWidth'?: number;
     'responsive'?: boolean;
     'rows'?: string;
+    'source'?: string;
+    'sourceUrl'?: string;
     'stacked'?: boolean;
     'switch'?: boolean;
     'tooltip'?: boolean;
