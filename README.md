@@ -90,7 +90,7 @@ parameters:
 
 * `stacked`: stacked bars: `false` (default) or `true`
 
-```
+```html
 <rpc-chart url="data.csv"
   chart-title="Bar Chart"
   x-label="Year"
@@ -123,7 +123,7 @@ The `line` chart type accepts the following additional parameters:
 * `fill`: where to begin shading for an area chart: `start`, `end`, `origin`,
   or `false` (default)
 
-```
+```html
 <rpc-chart url="data.csv"
   chart-title="Line Chart"
   x-label="Year"
@@ -141,7 +141,7 @@ The `line` chart type accepts the following additional parameters:
 #### Pie Chart and Doughnut Chart
 These examples illustrate the use of the `pie` and `doughnut` chart types:
 
-```
+```html
 <rpc-chart url="data.csv"
   columns="-3"
   chart-title="Pie Chart"
@@ -156,7 +156,7 @@ These examples illustrate the use of the `pie` and `doughnut` chart types:
 #### Scatter Chart
 This example illustrates the use of the `scatter` chart type:
 
-```
+```html
 <rpc-chart url="data.csv"
   chart-title="Scatter Chart"
   type="scatter"
@@ -188,7 +188,7 @@ The `rpc-dataset` element accepts the following parameters:
 
 In this example, a line dataset is overlaid on a bar chart:
 
-```
+```html
 <rpc-chart url="data.csv"
   chart-title="Multiple Types Chart"
   x-label="Year"
