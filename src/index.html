@@ -9,6 +9,7 @@
 </head>
 <body>
 
+
   <rpc-chart url="/data/results.csv"
     chart-title="Bar Chart"
     x-label="Year"
@@ -36,7 +37,6 @@
     y-label="Year"
     type="bar"></rpc-chart>
 
-
   <rpc-chart url="/data/results.csv"
     chart-title="Line Chart"
     x-label="Year"
@@ -49,6 +49,14 @@
     y-label="Score"
     type="line"
     fill="origin"></rpc-chart>
+
+  <rpc-chart url="/data/results.csv"
+    chart-title="Scatter Chart"
+    type="scatter"
+    x-label="Score"
+    y-label="Year"
+    type="bar"
+    tooltip-mode="nearest"></rpc-chart>
 
   <rpc-chart url="/data/results.csv"
     columns="-3"
