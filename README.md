@@ -203,7 +203,7 @@ In this example, a line dataset is overlaid on a bar chart:
 </rpc-chart>
 ```
 
-#### Custom Scale
+#### Custom Scales
 The `rpc-scale` element accepts the following parameters:
 
 * `auto-skip`: automatically drop some labels when space is limited:
