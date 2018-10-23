@@ -237,8 +237,12 @@ export class Chart {
       ...Array.from(this.el.querySelectorAll('rpc-dataset'))
     ];
 
-    datasets.sort((a, b) => a.order - b.order);
-    return datasets;
+    let unique = [];
+    for (let dataset of datasets)
+      if (unique.indexOf(dataset) === -1) unique.push(dataset);
+
+    unique.sort((a, b) => a.order - b.order);
+    return unique;
   }
 
   async createDatasets() {
