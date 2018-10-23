@@ -114,7 +114,6 @@ parameters:
   type="horizontalBar"
   x-label="Score"
   y-label="Year"></rpc-chart>
-
 ```
 
 #### Line Chart
