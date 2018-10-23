@@ -324,8 +324,12 @@ export class Chart {
     let label = this[axis + 'Label'];
     if (label) scale.scaleLabel = label;
 
+    let xDefault : ScaleType =
+      (this.type === 'horizontalBar') ? 'linear' : 'category';
+    let yDefault : ScaleType =
+      (this.type === 'horizontalBar') ? 'category' : 'linear';
     scale.type = (axis === 'x') ?
-      this.xType || 'category' : this.yType || 'linear';
+      this.xType || xDefault : this.yType || yDefault;
 
     this.canvas.appendChild(scale);
   }
