@@ -5,80 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>CCRPC Charts Examples</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,400i,700' type='text/css' media='screen' />
+  <link rel="stylesheet" href="assets/example.css">
   <script src="build/ccrpc-charts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 </head>
 <body>
+  <div class="main">
+    <h1>CCRPC Charts Examples</h1>
+    <rpc-chart url="assets/example.csv"
+      chart-title="Bar Chart"
+      x-label="Year"
+      y-label="Score"
+      type="bar"
+      width="300"
+      height="100"
+      source="CCRPC"
+      source-url="https://ccrpc.org/"></rpc-chart>
 
-  <rpc-chart url="assets/example.csv"
-    chart-title="Bar Chart"
-    x-label="Year"
-    y-label="Score"
-    type="bar"
-    width="300"
-    height="100"
-    source="CCRPC"
-    source-url="https://ccrpc.org/"></rpc-chart>
+    <rpc-chart url="assets/example.csv"
+      chart-title="Stacked Bar Chart"
+      x-label="Year"
+      y-label="Score"
+      type="bar"
+      stacked="true"
+      legend-position="right"
+      aspect-ratio="3"
+      description="These are the results of the team competition for the years 2001 to 2005."></rpc-chart>
 
-  <rpc-chart url="assets/example.csv"
-    chart-title="Stacked Bar Chart"
-    x-label="Year"
-    y-label="Score"
-    type="bar"
-    stacked="true"
-    legend-position="right"
-    aspect-ratio="3"
-    description="These are the results of the team competition for the years 2001 to 2005."></rpc-chart>
+    <rpc-chart url="assets/example.csv"
+      chart-title="Horizontal Bar Chart"
+      type="horizontalBar"
+      x-label="Score"
+      y-label="Year"></rpc-chart>
 
-  <rpc-chart url="assets/example.csv"
-    chart-title="Horizontal Bar Chart"
-    type="horizontalBar"
-    x-label="Score"
-    y-label="Year"></rpc-chart>
+    <rpc-chart url="assets/example.csv"
+      chart-title="Line Chart"
+      x-label="Year"
+      y-label="Score"
+      type="line"></rpc-chart>
 
-  <rpc-chart url="assets/example.csv"
-    chart-title="Line Chart"
-    x-label="Year"
-    y-label="Score"
-    type="line"></rpc-chart>
-
-  <rpc-chart url="assets/example.csv"
-    chart-title="Area Chart"
-    x-label="Year"
-    y-label="Score"
-    type="line"
-    fill="origin"></rpc-chart>
-
-  <rpc-chart url="assets/example.csv"
-    chart-title="Scatter Chart"
-    type="scatter"
-    x-label="Score"
-    y-label="Year"
-    tooltip-mode="nearest"></rpc-chart>
-
-  <rpc-chart url="assets/example.csv"
-    columns="-3"
-    chart-title="Pie Chart"
-    type="pie"></rpc-chart>
-
-  <rpc-chart url="assets/example.csv"
-    columns="-2"
-    chart-title="Doughnut Chart"
-    type="doughnut"></rpc-chart>
-
-  <rpc-chart url="assets/example.csv"
-    chart-title="Multiple Types Chart"
-    x-label="Year"
-    y-label="Score"
-    type="bar"
-    width="300"
-    height="100">
-    <rpc-dataset label="Baseline"
+    <rpc-chart url="assets/example.csv"
+      chart-title="Area Chart"
+      x-label="Year"
+      y-label="Score"
       type="line"
-      data="4,4,4,4,4"
-      fill="false"
-      border-color="lime"
-      point-radius="0"></rpc-dataset>
-  </rpc-chart>
+      fill="origin"></rpc-chart>
 
+    <rpc-chart url="assets/example.csv"
+      chart-title="Scatter Chart"
+      type="scatter"
+      x-label="Score"
+      y-label="Year"
+      tooltip-mode="nearest"></rpc-chart>
+
+    <rpc-chart url="assets/example.csv"
+      columns="-3"
+      chart-title="Pie Chart"
+      type="pie"></rpc-chart>
+
+    <rpc-chart url="assets/example.csv"
+      columns="-2"
+      chart-title="Doughnut Chart"
+      type="doughnut"></rpc-chart>
+
+    <rpc-chart url="assets/example.csv"
+      chart-title="Multiple Types Chart"
+      x-label="Year"
+      y-label="Score"
+      type="bar"
+      width="300"
+      height="100">
+      <rpc-dataset label="Baseline"
+        type="line"
+        data="4,4,4,4,4"
+        fill="false"
+        border-color="lime"
+        point-radius="0"></rpc-dataset>
+    </rpc-chart>
+  </div>
+  <script type="text/javascript">
+    Array.from(document.querySelectorAll('rpc-chart')).forEach((el) => {
+      let pre = document.createElement('pre');
+      let code = document.createElement('code');
+      code.classList.add('html');
+      code.textContent = el.outerHTML.replace(/" /g, "\"\n   ");
+      pre.appendChild(code);
+      el.parentNode.insertBefore(pre, el.nextSibling);
+    });
+    hljs.initHighlightingOnLoad();
+  </script>
 </body>
 </html>

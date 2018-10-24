@@ -1,0 +1,27 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.main {
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 20px;
+}
+h1 {
+  font-family: 'Montserrat', sans-serif;
+}
+pre {
+  background-color: #eeeeee;
+  padding: 15px;
+  overflow-x: auto;
+}
+.hljs-name {
+  color: #9122bf;
+}
+.hljs-attr {
+  color: #009345;
+}
+.hljs-string {
+  color: #2e3191;
+}
