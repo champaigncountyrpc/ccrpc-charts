@@ -84,14 +84,16 @@
     </rpc-chart>
   </div>
   <script type="text/javascript">
-    Array.from(document.querySelectorAll('rpc-chart')).forEach((el) => {
-      let pre = document.createElement('pre');
-      let code = document.createElement('code');
+    var charts = document.querySelectorAll('rpc-chart');
+    for (var i = 0; i < charts.length; i++) {
+      var el = charts[i];
+      var pre = document.createElement('pre');
+      var code = document.createElement('code');
       code.classList.add('html');
       code.textContent = el.outerHTML.replace(/" /g, "\"\n   ");
       pre.appendChild(code);
       el.parentNode.insertBefore(pre, el.nextSibling);
-    });
+    }
     hljs.initHighlightingOnLoad();
   </script>
 </body>
