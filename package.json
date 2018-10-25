@@ -17,7 +17,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@stencil/core": "0.14.1",
+    "@stencil/core": "0.15.0",
     "@types/chart.js": "^2.7.38",
     "@types/d3-fetch": "^1.1.2",
     "chart.js": "^2.7.3",
