@@ -2,7 +2,7 @@
 
 Charts and visualizations for the Champaign County Regional Planning Commission
 based on [Chart.js](https://chartjs.org/). To see the library in action,
-visit [the examples page](https://ccrpc.org/apps/charts-docs/).
+visit [the examples page](https://ccrpc.org/apps/charts-examples/).
 
 ## Tables
 The `rpc-table` element creates a table using data from a CSV file.
