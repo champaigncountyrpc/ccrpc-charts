@@ -1,6 +1,6 @@
 {
   "name": "@ccrpc/charts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Charts and visualizations for the Champaign County Regional Planning Commission based on Chart.js",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",
