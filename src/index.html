@@ -11,7 +11,20 @@
 </head>
 <body>
   <div class="main">
-    <h1>CCRPC Charts Examples</h1>
+    <h1>CCRPC Charts &amp; Visualizations</h1>
+    <p>
+      For details of the elements and parameters demonstrated below,
+      see <a href="https://github.com/champaigncountyrpc/ccrpc-charts">the
+      documentation</a>.
+    </p>
+    
+    <rpc-table url="assets/example.csv"
+      table-title="Table Example"
+      table-subtitle="Team Results, 2001 - 2005"
+      source="CCRPC"
+      source-url="https://ccrpc.org/"
+      text-alignment="l,r"></rpc-table>
+
     <rpc-chart url="assets/example.csv"
       chart-title="Bar Chart"
       x-label="Year"
@@ -84,13 +97,15 @@
     </rpc-chart>
   </div>
   <script type="text/javascript">
-    var charts = document.querySelectorAll('rpc-chart');
+    var charts = document.querySelectorAll('rpc-chart, rpc-table');
     for (var i = 0; i < charts.length; i++) {
       var el = charts[i];
       var pre = document.createElement('pre');
       var code = document.createElement('code');
       code.classList.add('html');
-      code.textContent = el.outerHTML.replace(/" /g, "\"\n   ");
+      code.textContent = el.outerHTML
+        .replace(/" /g, "\"\n   ")
+        .replace('assets/', '');
       pre.appendChild(code);
       el.parentNode.insertBefore(pre, el.nextSibling);
     }

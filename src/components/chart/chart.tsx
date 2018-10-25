@@ -3,11 +3,12 @@ import { default as ChartJS } from 'chart.js';
 import { ChartOptions, ChartType, InteractionMode, PositionType, ScaleType }
   from 'chart.js';
 import { getData, removeUndefined, rpcColor, setOpacity, toArray,
-  toNumericArray } from '../../utils';
+  toNumericArray, getMeta } from '../../utils';
 
 
 ChartJS.defaults.global.defaultFontFamily =
   "'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
+ChartJS.defaults.global.defaultFontColor = 'black';
 
 @Component({
   tag: 'rpc-chart',
@@ -248,11 +249,7 @@ export class Chart {
   async createDatasets() {
     if (!this.url) return false;
 
-    let data = await getData(this.url, {
-      rows: this.rows,
-      columns: this.columns,
-      switch: this.switch
-    });
+    let data = await getData(this);
 
     let labels = [];
     let datasets;
@@ -376,18 +373,6 @@ export class Chart {
     return tr;
   }
 
-  getMeta() {
-    let items = [];
-    if (this.source) {
-      let source = (this.sourceUrl) ?
-        <a href={this.sourceUrl}>{this.source}</a> : this.source;
-      items.push(<p class="source"><strong>Source:</strong> {source}</p>);
-    }
-    if (this.description)
-      items.push(<p class="description">{this.description}</p>);
-    if (items.length) return (<div class="meta">{items}</div>);
-  }
-
   hostData() {
     let attrs = {};
     if (this.legend || this.tooltip) attrs['tabindex'] = 0;
@@ -403,7 +388,7 @@ export class Chart {
       <canvas ref={(r) => this.canvas = r} {...canvasAttrs}>
         <slot />
       </canvas>,
-      this.getMeta()
+      getMeta(this)
     ]);
   }
 }

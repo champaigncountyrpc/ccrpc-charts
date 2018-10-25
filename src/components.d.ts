@@ -14,6 +14,9 @@ import {
   PositionType,
   ScaleType,
 } from 'chart.js';
+import {
+  TextAlignemnt,
+} from './components/table/interface';
 
 
 export namespace Components {
@@ -134,6 +137,37 @@ export namespace Components {
     'type'?: ScaleType;
     'weight'?: number;
   }
+
+  interface RpcTable {
+    'columns': number[] | string;
+    'description': string;
+    'footer': number;
+    'header': number;
+    'rows': number[] | string;
+    'scrollY': boolean;
+    'source': string;
+    'sourceUrl': string;
+    'switch': boolean;
+    'tableSubtitle': string;
+    'tableTitle': string;
+    'textAlignment': TextAlignemnt[] | string;
+    'url': string;
+  }
+  interface RpcTableAttributes extends StencilHTMLAttributes {
+    'columns'?: number[] | string;
+    'description'?: string;
+    'footer'?: number;
+    'header'?: number;
+    'rows'?: number[] | string;
+    'scrollY'?: boolean;
+    'source'?: string;
+    'sourceUrl'?: string;
+    'switch'?: boolean;
+    'tableSubtitle'?: string;
+    'tableTitle'?: string;
+    'textAlignment'?: TextAlignemnt[] | string;
+    'url'?: string;
+  }
 }
 
 declare global {
@@ -141,12 +175,14 @@ declare global {
     'RpcChart': Components.RpcChart;
     'RpcDataset': Components.RpcDataset;
     'RpcScale': Components.RpcScale;
+    'RpcTable': Components.RpcTable;
   }
 
   interface StencilIntrinsicElements {
     'rpc-chart': Components.RpcChartAttributes;
     'rpc-dataset': Components.RpcDatasetAttributes;
     'rpc-scale': Components.RpcScaleAttributes;
+    'rpc-table': Components.RpcTableAttributes;
   }
 
 
@@ -168,16 +204,24 @@ declare global {
     new (): HTMLRpcScaleElement;
   };
 
+  interface HTMLRpcTableElement extends Components.RpcTable, HTMLStencilElement {}
+  var HTMLRpcTableElement: {
+    prototype: HTMLRpcTableElement;
+    new (): HTMLRpcTableElement;
+  };
+
   interface HTMLElementTagNameMap {
     'rpc-chart': HTMLRpcChartElement
     'rpc-dataset': HTMLRpcDatasetElement
     'rpc-scale': HTMLRpcScaleElement
+    'rpc-table': HTMLRpcTableElement
   }
 
   interface ElementTagNameMap {
     'rpc-chart': HTMLRpcChartElement;
     'rpc-dataset': HTMLRpcDatasetElement;
     'rpc-scale': HTMLRpcScaleElement;
+    'rpc-table': HTMLRpcTableElement;
   }
 
 

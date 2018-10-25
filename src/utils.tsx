@@ -2,10 +2,17 @@ import * as d3Fetch from "d3-fetch";
 import Color from 'chartjs-color';
 
 
-export interface DataOptions {
+export interface DataElement {
+  url: string;
   switch?: boolean;
-  rows?: string;
-  columns?: string;
+  rows?: string | number[];
+  columns?: string | number[];
+}
+
+export interface MetaElement {
+  description?: string;
+  source?: string;
+  sourceUrl?: string;
 }
 
 function _filter(i: number, values: number[]) {
@@ -15,32 +22,24 @@ function _filter(i: number, values: number[]) {
   return (pos) ? match : !match;
 };
 
-function _toIntArray(values: string) {
-  return (values) ? values.split(',').map((v) => parseInt(v)) : [];
+function _toIntArray(values: string | number[]) {
+  return (values) ? toArray(values).map((v) => parseInt(v)) : [];
 }
 
-export async function getData(source: string | HTMLElement,
-    options: DataOptions = {}) : Promise<string[][]> {
+export async function getData(el: DataElement) : Promise<string[][]> {
   let data;
 
-  if (typeof source === 'string') {
-    let res = await d3Fetch.csv(source);
-    data = res.map((row) => res.columns.map((col) => row[col]));
-    data.unshift(res.columns);
-  } else {
-    data = Array.from(source.querySelectorAll('tr')).map((tr) => {
-      return Array.from(tr.querySelectorAll('td,th'))
-        .map((td) => td.textContent)
-    });
-  }
+  let res = await d3Fetch.csv(el.url);
+  data = res.map((row) => res.columns.map((col) => row[col]));
+  data.unshift(res.columns);
 
   // Transpose rows and columns if necessary.
-  if (options.switch)
+  if (el.switch)
     data = data[0].map((_col, i) => data.map((row) => row[i]));
 
   // Filter rows and columns.
-  let rows = _toIntArray(options.rows);
-  let cols = _toIntArray(options.columns);
+  let rows = _toIntArray(el.rows);
+  let cols = _toIntArray(el.columns);
 
   if (rows.length) data = data.filter((_row, r) => _filter(r, rows));
   if (cols.length) data = data.map(
@@ -85,4 +84,16 @@ export function rpcColor(color: string | string[]) {
   if (color === undefined) return color;
   return (typeof color === 'string') ?
     colors[color] || color : color.map((c) => colors[c] || c);
+}
+
+export function getMeta(el: MetaElement) {
+  let items = [];
+  if (el.source) {
+    let source = (el.sourceUrl) ?
+      <a href={el.sourceUrl}>{el.source}</a> : el.source;
+    items.push(<p class="source"><strong>Source:</strong> {source}</p>);
+  }
+  if (el.description)
+    items.push(<p class="description">{el.description}</p>);
+  if (items.length) return (<div class="meta">{items}</div>);
 }

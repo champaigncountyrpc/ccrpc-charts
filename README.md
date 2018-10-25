@@ -1,9 +1,52 @@
-# CCRPC Charts
+# CCRPC Charts and Visualizations
 
-Charts for the Champaign County Regional Planning Commission based on
-[Chart.js](https://chartjs.org/).
+Charts and visualizations for the Champaign County Regional Planning Commission
+based on [Chart.js](https://chartjs.org/).
 
-## Usage
+## Tables
+The `rpc-table` element creates a table using data from a CSV file.
+
+### Parameters
+The `rpc-table` element accepts the following parameters:
+
+#### Data Parameters
+* `url`: path to a CSV file containing the table data
+* `rows`: comma-separated list of row numbers to include. Negative numbers
+  can be used to remove the corresponding rows.
+  Row selection occurs after row/column switching, if enabled.
+* `columns`: comma-separated list of column numbers to include.
+  Negative numbers can be used to remove the corresponding columns.
+  Column selection occurs after row/column switching, if enabled.
+* `switch`: switch rows and columns: `false` (default) or `true`
+
+#### Table Formatting Parameters
+* `table-title`: table title
+* `table-subtitle`: table subtitle
+* `header`: number of header rows (default: `1`)
+* `footer`: number of footer rows (default: `0`)
+* `text-alignment`: comma-separated list of alignment values:
+  `left` or `l` (default), `center` or `c`, and `right` or `r`. If the
+  list is shorter than the number of columns, the final alignment value
+  is used for all subsequent columns.
+* `scroll-y`: show a horiontal scroll bar if the table is too wide for the
+  content area: `false` or `true` (default)
+
+#### Metadata Parameters
+* `description`: summary of the chart
+* `source`: data source
+* `sourceUrl`: data source URL
+
+### Example
+```html
+<rpc-table url="data.csv"
+  table-title="Table Example"
+  table-subtitle="Team Results, 2001 - 2005"
+  source="CCRPC"
+  source-url="https://ccrpc.org/"
+  text-alignment="l,r"></rpc-table>
+```
+
+## Charts
 The `rpc-chart` element creates a chart using the
 [Chart.js](https://www.chartjs.org/) JavaScript library.
 
