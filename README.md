@@ -32,7 +32,7 @@ The `rpc-table` element accepts the following parameters:
   content area: `false` or `true` (default)
 
 #### Metadata Parameters
-* `description`: summary of the chart
+* `description`: summary of the table
 * `source`: data source
 * `sourceUrl`: data source URL
 
